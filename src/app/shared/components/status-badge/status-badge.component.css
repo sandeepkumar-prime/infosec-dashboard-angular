@@ -1,0 +1,13 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.status-open { color: #c62828; }
+.status-progress { color: #1565c0; }
+.status-resolved { color: #2e7d32; }
+.status-accepted { color: #6a5acd; }

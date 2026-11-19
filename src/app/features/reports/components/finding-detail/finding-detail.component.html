@@ -1,0 +1,91 @@
+<div class="backdrop" (click)="close()"></div>
+<aside class="drawer" role="dialog" aria-label="Finding details">
+  <ng-container *ngIf="finding; else notFound">
+    <header class="drawer-header">
+      <div>
+        <div class="drawer-id mono">{{ finding.id }}</div>
+        <h2 class="drawer-title">{{ finding.title }}</h2>
+        <div class="drawer-badges">
+          <app-severity-badge [severity]="finding.severity"></app-severity-badge>
+          <app-status-badge [status]="finding.status"></app-status-badge>
+          <span class="due" [class.overdue]="isOverdue()">{{ finding.dueDate | dueStatus }}</span>
+        </div>
+      </div>
+      <button type="button" class="close-btn" aria-label="Close" (click)="close()">×</button>
+    </header>
+
+    <div class="drawer-body">
+      <section>
+        <h3>Description</h3>
+        <p>{{ finding.description }}</p>
+      </section>
+
+      <dl class="facts">
+        <div><dt>Domain</dt><dd>{{ finding.domain }}</dd></div>
+        <div><dt>Asset</dt><dd class="mono">{{ finding.asset }}</dd></div>
+        <div><dt>Owner</dt><dd>{{ finding.owner }}</dd></div>
+        <div><dt>CVSS Score</dt><dd>{{ finding.cvssScore | number:'1.1-1' }}</dd></div>
+        <div><dt>Discovered</dt><dd>{{ finding.discoveredOn | date:'dd MMM yyyy' }}</dd></div>
+        <div><dt>Due Date</dt><dd>{{ finding.dueDate | date:'dd MMM yyyy' }}</dd></div>
+      </dl>
+
+      <section>
+        <h3>Recommended Remediation</h3>
+        <p>{{ finding.remediation }}</p>
+      </section>
+
+      <section class="update">
+        <h3>Update Status</h3>
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <label for="status-select">New status</label>
+          <select id="status-select" formControlName="status">
+            <option *ngFor="let s of statuses" [ngValue]="s">{{ s }}</option>
+          </select>
+          <div class="error" *ngIf="form.hasError('statusUnchanged') && (form.get('status').touched || form.get('comment').dirty)">
+            Select a status different from the current status.
+          </div>
+
+          <label for="comment">Comment</label>
+          <textarea id="comment" rows="3" formControlName="comment"
+                    [attr.maxlength]="commentMax"
+                    placeholder="Describe the action taken (min. {{ commentMin }} characters)"></textarea>
+          <div class="form-row">
+            <span class="error" *ngIf="showError('comment')">
+              <ng-container *ngIf="form.get('comment').hasError('required')">Comment is required.</ng-container>
+              <ng-container *ngIf="form.get('comment').hasError('minlength')">
+                Comment must be at least {{ commentMin }} characters.
+              </ng-container>
+            </span>
+            <span class="counter">{{ commentLength }}/{{ commentMax }}</span>
+          </div>
+
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Update status</button>
+        </form>
+      </section>
+
+      <section>
+        <h3>History</h3>
+        <ol class="timeline">
+          <li *ngFor="let entry of finding.history.slice().reverse(); trackBy: trackByIndex">
+            <div class="tl-head">
+              <app-status-badge [status]="entry.status"></app-status-badge>
+              <span class="tl-date">{{ entry.date | date:'dd MMM yyyy, HH:mm':'UTC' }}</span>
+            </div>
+            <div class="tl-comment">{{ entry.comment }}</div>
+            <div class="tl-by">by {{ entry.updatedBy }}</div>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </ng-container>
+
+  <ng-template #notFound>
+    <header class="drawer-header">
+      <h2 class="drawer-title">Finding not found</h2>
+      <button type="button" class="close-btn" aria-label="Close" (click)="close()">×</button>
+    </header>
+    <div class="drawer-body">
+      <p>No finding exists with ID <strong class="mono">{{ notFoundId }}</strong>.</p>
+    </div>
+  </ng-template>
+</aside>

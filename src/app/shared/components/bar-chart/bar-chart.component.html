@@ -1,0 +1,23 @@
+<div class="chart">
+  <div class="plot" [style.height.px]="height">
+    <div class="group" *ngFor="let group of groups; trackBy: trackByLabel">
+      <div class="bars">
+        <div class="bar"
+             *ngFor="let value of group.values; let i = index"
+             [style.height.%]="barHeight(value)"
+             [style.background]="series[i]?.color"
+             [attr.title]="series[i]?.name + ': ' + value">
+          <span class="bar-value">{{ value }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="axis">
+    <span class="axis-label" *ngFor="let group of groups; trackBy: trackByLabel">{{ group.label }}</span>
+  </div>
+  <div class="legend">
+    <span class="legend-item" *ngFor="let s of series">
+      <span class="swatch" [style.background]="s.color"></span>{{ s.name }}
+    </span>
+  </div>
+</div>

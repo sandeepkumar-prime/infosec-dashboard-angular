@@ -1,0 +1,33 @@
+.posture {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+.posture-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+.posture-value { font-size: 26px; font-weight: 700; }
+.posture-value small { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.overdue-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff4e5;
+  border: 1px solid #ffcc80;
+  color: #7a4100;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+.incident-status { white-space: nowrap; }

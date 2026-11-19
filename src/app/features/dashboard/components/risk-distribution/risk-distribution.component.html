@@ -1,0 +1,12 @@
+<div class="risk">
+  <app-donut-chart [segments]="segments" [centerValue]="total" centerLabel="Open risks"></app-donut-chart>
+  <ul class="legend">
+    <li *ngFor="let item of distribution" class="legend-row" (click)="severitySelect.emit(item.severity)">
+      <span class="swatch" [style.background]="colors[item.severity]"></span>
+      <span class="legend-label">{{ item.severity }}</span>
+      <span class="legend-count">{{ item.count }}</span>
+      <span class="legend-pct">{{ item.percent | percent:'1.0-0' }}</span>
+      <app-progress-bar class="legend-bar" [value]="item.percent * 100" [color]="colors[item.severity]" [height]="6"></app-progress-bar>
+    </li>
+  </ul>
+</div>

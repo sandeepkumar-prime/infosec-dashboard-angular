@@ -1,0 +1,43 @@
+<form class="filters" #filterForm="ngForm" (ngSubmit)="emitChange()" novalidate>
+  <div class="field search-field">
+    <label for="search">Search</label>
+    <div class="search-box">
+      <input id="search"
+             #searchInput
+             type="text"
+             name="search"
+             placeholder="ID, title, asset, owner or domain  ( / )"
+             autocomplete="off"
+             [(ngModel)]="model.search"
+             (ngModelChange)="emitChange()">
+      <button *ngIf="model.search" type="button" class="clear" aria-label="Clear search" (click)="clearSearch()">×</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="severity">Severity</label>
+    <select id="severity" name="severity" [(ngModel)]="model.severity" (ngModelChange)="emitChange()">
+      <option value="All">All severities</option>
+      <option *ngFor="let s of severities" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="status">Status</label>
+    <select id="status" name="status" [(ngModel)]="model.status" (ngModelChange)="emitChange()">
+      <option value="All">All statuses</option>
+      <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <div class="field checkbox-field">
+    <label class="checkbox">
+      <input type="checkbox" name="overdueOnly" [(ngModel)]="model.overdueOnly" (ngModelChange)="emitChange()">
+      Overdue only
+    </label>
+  </div>
+
+  <div class="field actions">
+    <button type="button" class="btn btn-secondary" [disabled]="!hasActiveFilters" (click)="reset.emit()">Reset filters</button>
+  </div>
+</form>

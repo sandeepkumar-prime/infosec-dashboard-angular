@@ -1,0 +1,9 @@
+<div class="toast-container" aria-live="polite">
+  <div *ngFor="let toast of toasts$ | async; trackBy: trackById"
+       class="toast"
+       [ngClass]="'toast-' + toast.type"
+       role="status">
+    <span class="toast-message">{{ toast.message }}</span>
+    <button type="button" class="toast-close" aria-label="Dismiss" (click)="dismiss(toast.id)">×</button>
+  </div>
+</div>

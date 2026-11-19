@@ -1,0 +1,26 @@
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+.domain {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  background: var(--surface-alt);
+}
+.domain-head { display: flex; justify-content: space-between; align-items: center; }
+.domain-name { font-size: 13px; font-weight: 600; color: var(--text-strong); }
+.trend-up { color: var(--success); }
+.trend-down { color: var(--sev-critical); }
+.trend-flat { color: var(--text-muted); }
+.domain-score { font-size: 22px; font-weight: 700; margin: 6px 0; }
+.domain-score small { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.domain-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.has-open { color: var(--sev-high); font-weight: 600; }

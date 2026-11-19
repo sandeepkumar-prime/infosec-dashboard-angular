@@ -1,0 +1,16 @@
+<header class="header">
+  <button type="button" class="menu-btn" aria-label="Toggle navigation" (click)="menuToggle.emit()">☰</button>
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">◈</span>
+    <span class="brand-name">{{ config.appName }}</span>
+    <span class="brand-divider"></span>
+    <span class="brand-org">{{ config.organization }}</span>
+  </div>
+  <div class="header-right">
+    <span class="as-of">Data as of {{ config.referenceDate | date:'dd MMM yyyy, HH:mm':'UTC' }} UTC</span>
+    <span class="user">
+      <span class="avatar">{{ initials }}</span>
+      <span class="user-name">{{ config.currentUser }}</span>
+    </span>
+  </div>
+</header>

@@ -1,0 +1,17 @@
+<nav class="sidebar" [class.collapsed]="collapsed" aria-label="Main navigation">
+  <div class="nav-section">Navigation</div>
+  <a *ngFor="let item of navItems"
+     class="nav-link"
+     [routerLink]="item.route"
+     routerLinkActive="active"
+     [attr.title]="collapsed ? item.label : null">
+    <span class="nav-icon" aria-hidden="true">{{ item.icon }}</span>
+    <span class="nav-text">
+      <span class="nav-label">{{ item.label }}</span>
+      <span class="nav-desc">{{ item.description }}</span>
+    </span>
+  </a>
+  <div class="sidebar-footer">
+    <span class="nav-text">v1.0.0 · Mock data</span>
+  </div>
+</nav>

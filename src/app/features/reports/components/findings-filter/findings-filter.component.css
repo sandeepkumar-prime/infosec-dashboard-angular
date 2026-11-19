@@ -1,0 +1,21 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+.search-field { flex: 1; min-width: 240px; }
+.search-box { position: relative; }
+.search-box input { width: 100%; padding-right: 28px; }
+.clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  border: none; background: transparent; font-size: 16px; cursor: pointer; color: var(--text-muted);
+}
+.checkbox-field { padding-bottom: 8px; }
+.checkbox { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text); cursor: pointer; }
+.checkbox-field label { font-weight: 500; }

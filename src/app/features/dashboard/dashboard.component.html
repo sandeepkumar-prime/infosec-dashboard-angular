@@ -1,0 +1,96 @@
+<ng-container *ngIf="summary$ | async as summary">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Security Dashboard</h1>
+      <p class="page-subtitle">Consolidated view of the organization's information security posture</p>
+    </div>
+    <div class="posture" title="Average of all security domain scores">
+      <span class="posture-label">Security Posture Score</span>
+      <span class="posture-value"><span [appScoreColor]="summary.postureScore">{{ summary.postureScore }}</span><small>/100</small></span>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="kpi-grid">
+    <app-stat-card label="Total Assets Monitored"
+                   icon="🖥"
+                   variant="info"
+                   [value]="summary.monitoredAssets | number"
+                   [caption]="(summary.coverage | percent:'1.1-1') + ' of ' + (summary.totalAssets | number) + ' assets'">
+    </app-stat-card>
+    <app-stat-card label="Critical Risks" variant="critical" [clickable]="true"
+                   [value]="summary.openBySeverity.Critical" caption="Open findings"
+                   (cardClick)="viewSeverity('Critical')"></app-stat-card>
+    <app-stat-card label="High Risks" variant="high" [clickable]="true"
+                   [value]="summary.openBySeverity.High" caption="Open findings"
+                   (cardClick)="viewSeverity('High')"></app-stat-card>
+    <app-stat-card label="Medium Risks" variant="medium" [clickable]="true"
+                   [value]="summary.openBySeverity.Medium" caption="Open findings"
+                   (cardClick)="viewSeverity('Medium')"></app-stat-card>
+    <app-stat-card label="Low Risks" variant="low" [clickable]="true"
+                   [value]="summary.openBySeverity.Low" caption="Open findings"
+                   (cardClick)="viewSeverity('Low')"></app-stat-card>
+    <app-stat-card label="Open Incidents" icon="⚠" variant="high"
+                   [value]="summary.openIncidents" caption="Not yet closed"></app-stat-card>
+    <app-stat-card label="Resolved Issues" icon="✔" variant="success" [clickable]="true"
+                   [value]="summary.resolvedIssues" caption="Findings resolved"
+                   (cardClick)="viewResolved()"></app-stat-card>
+  </div>
+
+  <div class="overdue-banner" *ngIf="summary.overdueFindings > 0">
+    <span><strong>{{ summary.overdueFindings }}</strong> open findings are past their remediation due date.</span>
+    <button type="button" class="btn btn-link" (click)="viewOverdue()">Review overdue findings →</button>
+  </div>
+
+  <!-- Charts row -->
+  <div class="grid grid-2">
+    <app-panel title="Risk Distribution" subtitle="Open findings by severity">
+      <app-risk-distribution [distribution]="distribution$ | async"
+                             [total]="summary.openFindings"
+                             (severitySelect)="viewSeverity($event)"></app-risk-distribution>
+    </app-panel>
+    <app-panel title="Findings Trend" subtitle="Detected vs. resolved, last 6 months">
+      <app-incident-trend [trends]="trends"></app-incident-trend>
+    </app-panel>
+  </div>
+
+  <!-- Domains + alerts -->
+  <div class="grid grid-wide">
+    <app-panel title="Security Domain Overview" subtitle="Control compliance score by domain">
+      <app-domain-overview [domains]="domains$ | async"></app-domain-overview>
+    </app-panel>
+    <app-panel title="Recent Security Alerts" subtitle="Latest events from monitoring sources">
+      <a panel-actions routerLink="/reports" class="btn btn-link small">All findings →</a>
+      <app-recent-alerts [alerts]="alerts$ | async" (acknowledge)="onAcknowledge($event)"></app-recent-alerts>
+    </app-panel>
+  </div>
+
+  <!-- Assets + incidents -->
+  <div class="grid grid-2">
+    <app-panel title="Asset Coverage" subtitle="Monitored assets by category">
+      <app-asset-coverage [categories]="assetCategories"></app-asset-coverage>
+    </app-panel>
+    <app-panel title="Active Security Incidents" [subtitle]="activeIncidents.length + ' incidents not closed'">
+      <table class="table compact">
+        <thead>
+          <tr><th>ID</th><th>Incident</th><th>Severity</th><th>Status</th><th>Opened</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let incident of activeIncidents; trackBy: trackByIncident">
+            <td class="mono">{{ incident.id }}</td>
+            <td>{{ incident.title | truncate:38 }}</td>
+            <td><app-severity-badge [severity]="incident.severity"></app-severity-badge></td>
+            <td>
+              <span class="incident-status" [ngSwitch]="incident.status">
+                <span *ngSwitchCase="'Investigating'" class="pill pill-blue">Investigating</span>
+                <span *ngSwitchCase="'Contained'" class="pill pill-green">Contained</span>
+                <span *ngSwitchDefault class="pill pill-red">{{ incident.status }}</span>
+              </span>
+            </td>
+            <td>{{ incident.openedOn | date:'dd MMM' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </app-panel>
+  </div>
+</ng-container>

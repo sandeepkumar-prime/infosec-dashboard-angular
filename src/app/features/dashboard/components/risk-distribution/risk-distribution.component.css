@@ -1,0 +1,20 @@
+.risk { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.legend { list-style: none; margin: 0; padding: 0; flex: 1; min-width: 200px; }
+.legend-row {
+  display: grid;
+  grid-template-columns: 12px 1fr 32px 44px;
+  grid-template-areas: "sw label count pct" "bar bar bar bar";
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 4px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.legend-row:hover { background: var(--hover); }
+.swatch { grid-area: sw; width: 12px; height: 12px; border-radius: 3px; }
+.legend-label { grid-area: label; }
+.legend-count { grid-area: count; font-weight: 700; text-align: right; }
+.legend-pct { grid-area: pct; color: var(--text-muted); text-align: right; }
+.legend-bar { grid-area: bar; }

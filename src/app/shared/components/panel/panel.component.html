@@ -1,0 +1,14 @@
+<section class="panel">
+  <header class="panel-header" *ngIf="title">
+    <div>
+      <h2 class="panel-title">{{ title }}</h2>
+      <p class="panel-subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+    </div>
+    <div class="panel-actions">
+      <ng-content select="[panel-actions]"></ng-content>
+    </div>
+  </header>
+  <div class="panel-body">
+    <ng-content></ng-content>
+  </div>
+</section>

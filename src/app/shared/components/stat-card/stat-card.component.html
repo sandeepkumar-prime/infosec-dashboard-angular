@@ -1,0 +1,14 @@
+<div class="stat-card"
+     [ngClass]="'variant-' + variant"
+     [class.clickable]="clickable"
+     [attr.role]="clickable ? 'button' : null"
+     [attr.tabindex]="clickable ? 0 : null"
+     (click)="onClick()"
+     (keydown.enter)="onClick()">
+  <div class="stat-top">
+    <span class="stat-label">{{ label }}</span>
+    <span class="stat-icon" *ngIf="icon" aria-hidden="true">{{ icon }}</span>
+  </div>
+  <div class="stat-value">{{ value }}</div>
+  <div class="stat-caption" *ngIf="caption">{{ caption }}</div>
+</div>

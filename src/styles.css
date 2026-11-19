@@ -1,0 +1,134 @@
+/* ==========================================================================
+   SecureScope 360 - global styles (plain CSS, no UI framework)
+   ========================================================================== */
+:root {
+  --primary: #0b2545;
+  --accent: #2ec4b6;
+  --info: #1565c0;
+  --success: #2e7d32;
+
+  --sev-critical: #c62828;
+  --sev-high: #ef6c00;
+  --sev-medium: #f2b600;
+  --sev-low: #2e7d32;
+
+  --bg: #f3f5f9;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --border: #e2e8f0;
+  --hover: #eef3f9;
+  --track: #e6ebf2;
+
+  --text: #2d3748;
+  --text-strong: #1a202c;
+  --text-muted: #6b7a90;
+
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 6px 16px rgba(16, 24, 40, 0.12);
+
+  --font: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+a { color: var(--info); }
+.mono { font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+
+/* ---------- page layout ---------- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.page-title { margin: 0; font-size: 22px; color: var(--primary); }
+.page-subtitle { margin: 4px 0 0; font-size: 13px; color: var(--text-muted); }
+
+.grid { display: grid; gap: 16px; margin-bottom: 16px; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-wide { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+@media (max-width: 1100px) {
+  .grid-2, .grid-wide { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- form controls ---------- */
+input[type="text"], select, textarea {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text);
+  padding: 7px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  min-height: 34px;
+}
+input[type="text"]:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--info);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
+}
+textarea.ng-invalid.ng-touched, textarea.ng-invalid.ng-dirty { border-color: var(--sev-critical); }
+
+/* ---------- buttons ---------- */
+.btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.small { padding: 4px 10px; font-size: 12px; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: #13396a; }
+.btn-secondary { background: #fff; color: var(--primary); border-color: #cbd5e1; }
+.btn-secondary:hover:not(:disabled) { background: var(--hover); }
+.btn-link { background: transparent; color: var(--info); padding-left: 0; padding-right: 0; border: none; }
+
+/* ---------- tables ---------- */
+.table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  padding: 10px 10px;
+  border-bottom: 2px solid var(--border);
+}
+.table td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.table.compact td, .table.compact th { padding: 8px 6px; }
+
+/* severity row marker (SeverityHighlightDirective) */
+.sev-row td:first-child { border-left: 4px solid transparent; }
+.sev-row[data-severity="critical"] td:first-child { border-left-color: var(--sev-critical); }
+.sev-row[data-severity="high"] td:first-child { border-left-color: var(--sev-high); }
+.sev-row[data-severity="medium"] td:first-child { border-left-color: var(--sev-medium); }
+.sev-row[data-severity="low"] td:first-child { border-left-color: var(--sev-low); }
+
+/* ---------- misc ---------- */
+.pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.pill-red { background: #fdecea; color: var(--sev-critical); }
+.pill-blue { background: #e3f2fd; color: var(--info); }
+.pill-green { background: #e8f5e9; color: var(--success); }
+
+.empty-state { text-align: center; color: var(--text-muted); padding: 28px 0; font-size: 13px; }

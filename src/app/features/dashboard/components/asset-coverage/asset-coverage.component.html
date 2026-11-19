@@ -1,0 +1,12 @@
+<div class="asset-row" *ngFor="let category of categories">
+  <div class="asset-head">
+    <span class="asset-name">{{ category.category }}</span>
+    <span class="asset-count">
+      {{ category.monitored | number }} / {{ category.count | number }}
+      <span class="asset-pct" [class.below]="isBelowTarget(category)">{{ coverage(category) | percent:'1.1-1' }}</span>
+    </span>
+  </div>
+  <app-progress-bar [value]="category.monitored" [max]="category.count"
+                    [color]="isBelowTarget(category) ? 'var(--sev-high)' : 'var(--accent)'"></app-progress-bar>
+</div>
+<p class="asset-note">Target coverage: 95%. Categories below target are highlighted.</p>

@@ -1,0 +1,22 @@
+<div class="domain-grid">
+  <div class="domain" *ngFor="let domain of domains; trackBy: trackByName">
+    <div class="domain-head">
+      <span class="domain-name">{{ domain.name }}</span>
+      <span class="trend" [ngSwitch]="domain.trend">
+        <span *ngSwitchCase="'up'" class="trend-up" title="Improving">▲</span>
+        <span *ngSwitchCase="'down'" class="trend-down" title="Declining">▼</span>
+        <span *ngSwitchDefault class="trend-flat" title="Stable">▬</span>
+      </span>
+    </div>
+    <div class="domain-score">
+      <span [appScoreColor]="domain.score">{{ domain.score }}</span><small>/100</small>
+    </div>
+    <app-progress-bar [value]="domain.score" [color]="barColor(domain.score)"></app-progress-bar>
+    <div class="domain-meta">
+      <span>{{ domain.controlsPassing }}/{{ domain.controlsTotal }} controls passing</span>
+      <span [class.has-open]="domain.openFindings > 0">
+        {{ domain.openFindings }} open {{ domain.openFindings === 1 ? 'finding' : 'findings' }}
+      </span>
+    </div>
+  </div>
+</div>

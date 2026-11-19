@@ -1,0 +1,28 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Security Reports</h1>
+    <p class="page-subtitle">Detailed register of security findings across all domains</p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="exportCsv()">⭳ Export CSV</button>
+</div>
+
+<ng-container *ngIf="view$ | async as view">
+  <app-panel>
+    <app-findings-filter [filter]="filter"
+                         (filterChange)="onFilterChange($event)"
+                         (reset)="onResetFilters()"></app-findings-filter>
+
+    <div class="result-count">
+      Showing <strong>{{ view.rows.length }}</strong> of {{ view.total }} findings
+    </div>
+
+    <app-findings-table [findings]="view.rows"
+                        [sort]="sort"
+                        [selectedId]="selectedId"
+                        (sortChange)="onSortChange($event)"
+                        (rowSelect)="onSelect($event)"></app-findings-table>
+  </app-panel>
+</ng-container>
+
+<!-- Child route: finding detail drawer -->
+<router-outlet></router-outlet>

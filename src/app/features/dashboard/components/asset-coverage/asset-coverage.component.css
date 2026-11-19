@@ -1,0 +1,7 @@
+.asset-row { margin-bottom: 12px; }
+.asset-head { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+.asset-name { font-weight: 600; color: var(--text-strong); }
+.asset-count { color: var(--text-muted); }
+.asset-pct { margin-left: 8px; font-weight: 700; color: var(--success); }
+.asset-pct.below { color: var(--sev-high); }
+.asset-note { font-size: 11px; color: var(--text-muted); margin: 4px 0 0; }

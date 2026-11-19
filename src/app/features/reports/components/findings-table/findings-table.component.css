@@ -1,0 +1,23 @@
+.table-wrap { overflow-x: auto; }
+.findings-table th { cursor: pointer; user-select: none; white-space: nowrap; }
+.findings-table th:hover { color: var(--text-strong); }
+.findings-table th.sorted { color: var(--primary); }
+.sort-indicator { font-size: 10px; color: var(--text-muted); margin-left: 2px; }
+.findings-table tbody tr { cursor: pointer; }
+.findings-table tbody tr.odd { background: var(--surface-alt); }
+.findings-table tbody tr:hover { background: var(--hover); }
+.findings-table tbody tr.selected { background: #e3f2fd; }
+.col-id { width: 72px; }
+.col-num { text-align: right; }
+.title { font-weight: 600; color: var(--text-strong); }
+.sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.overdue { color: var(--sev-critical); font-weight: 600; white-space: nowrap; }
+.overdue-tag {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: #fdecea;
+  color: var(--sev-critical);
+}

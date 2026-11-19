@@ -1,0 +1,25 @@
+<div class="alerts-toolbar">
+  <span class="pending">{{ pendingCount }} awaiting acknowledgement</span>
+  <label class="checkbox">
+    <input type="checkbox" [checked]="unacknowledgedOnly" (change)="toggleFilter($event.target.checked)">
+    Unacknowledged only
+  </label>
+</div>
+
+<ul class="alert-list" *ngIf="visibleAlerts.length; else noAlerts">
+  <li *ngFor="let alert of visibleAlerts; trackBy: trackById" class="alert-item" [class.acked]="alert.acknowledged">
+    <app-severity-badge [severity]="alert.severity"></app-severity-badge>
+    <div class="alert-body">
+      <div class="alert-title">{{ alert.title }}</div>
+      <div class="alert-meta">{{ alert.source }} · {{ alert.asset }} · {{ alert.timestamp | relativeTime }}</div>
+    </div>
+    <button *ngIf="!alert.acknowledged; else ackedLabel"
+            type="button" class="btn btn-secondary small"
+            (click)="acknowledge.emit(alert)">Acknowledge</button>
+    <ng-template #ackedLabel><span class="acked-label">✔ Acknowledged</span></ng-template>
+  </li>
+</ul>
+
+<ng-template #noAlerts>
+  <div class="empty-state">No unacknowledged alerts. 🎉</div>
+</ng-template>
