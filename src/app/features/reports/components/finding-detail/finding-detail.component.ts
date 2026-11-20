@@ -1,8 +1,8 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators
@@ -42,7 +42,7 @@ export class FindingDetailComponent implements OnInit, OnDestroy {
   readonly commentMax = COMMENT_MAX_LENGTH;
   readonly commentMin = COMMENT_MIN_LENGTH;
 
-  readonly form: FormGroup;
+  readonly form: UntypedFormGroup;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -50,7 +50,7 @@ export class FindingDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private dataService: SecurityDataService,
     private notifications: NotificationService,
-    fb: FormBuilder
+    fb: UntypedFormBuilder
   ) {
     this.form = fb.group(
       {

@@ -1,6 +1,6 @@
-# SecureScope 360 – Angular 10 InfoSec Dashboard (Migration Baseline)
+# SecureScope 360 – Angular 15 InfoSec Dashboard (Migration Baseline)
 
-A small, enterprise-style Information Security dashboard built with **Angular 10** and a classic
+A small, enterprise-style Information Security dashboard built with **Angular 15** and a classic
 **NgModule-based architecture**. It is the *source application* for evaluating automated
 **Angular → Svelte** migration with the Software Factory tool, and the *baseline* the migrated app is
 validated against.
@@ -23,22 +23,30 @@ validated against.
 
 | Tool | Version |
 |---|---|
-| Node.js | **14.x or 16.x** (see `.nvmrc`; verified with 16.14.2) |
-| npm | 6+ |
+| Node.js | **18.x** (see `.nvmrc`; Angular 15 supports ^14.20, ^16.13 and ^18.10) |
+| npm | 8+ |
 | Chrome | for unit tests (Karma) |
 
-The npm scripts work on **any Node version** (verified on 16 and 24). Angular 10's tooling
-(webpack 4, webpack-dev-server 3) predates Node 17, so the scripts in `scripts/` adapt:
+Verified: build, `ng serve` and the 24 unit tests on Node 16.14 and 18.16. `ng serve` and the build
+also work on Node 24, which Angular 15 does not officially support.
 
-* `ng build` / `ng test` get `--openssl-legacy-provider` automatically on Node 17+.
-* `npm start` uses `ng serve` (live reload) on Node ≤ 16. On Node 17+, `ng serve` crashes
-  (`No such module: http_parser`), so it runs `ng build --watch` plus a small static server instead.
-  After a code change, refresh the browser.
+`.npmrc` sets `legacy-peer-deps=true`, which the step-by-step `ng update` needed and plain installs
+still use.
+
+### Upgrade history
+
+The app was written for Angular 10 and upgraded one major at a time with `ng update` (10 → 11 → 12
+→ 13 → 14 → 15) on branch `upgrade/angular-15`, building and running all tests after each step. The
+only source changes the migrations made: `relativeLinkResolution` added in v11 and removed in v15
+(`app-routing.module.ts`), test bootstrap updates (`test.ts`, `polyfills.ts`), and the reactive
+status-update form opted out of typed forms in v14 (`UntypedFormBuilder`, `UntypedFormGroup` in
+`finding-detail.component.ts`). The TypeScript target is ES2022 with `useDefineForClassFields: false`,
+as Angular 15 expects. The Angular 10 version stays on `main`.
 
 ## Run
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 npm start          # http://localhost:4200   (npm start -- --port 4300 to change the port)
 npm run build:prod # output in dist/securescope-360
 npm run test:ci    # 24 Jasmine/Karma unit tests, headless Chrome

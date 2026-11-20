@@ -1,4 +1,4 @@
-# Angular Feature Coverage
+# Angular Feature Coverage (Angular 15)
 
 Inventory of the Angular constructs exercised by this application, where to find them, and the
 construct a correct Svelte migration is expected to produce. Use it as a checklist when reviewing
@@ -71,7 +71,7 @@ the migrated code.
 | Angular construct | Location | Expected Svelte equivalent |
 |---|---|---|
 | Template-driven form: `FormsModule`, `ngForm`, `[(ngModel)]` + `(ngModelChange)` on text, select, checkbox | `findings-filter.component.html` | `bind:value`, `bind:checked` + change handler |
-| Reactive form: `FormBuilder`, `FormGroup`, `formControlName`, `[ngValue]` | `finding-detail.component.ts/.html` | Local state variables + `bind:value` |
+| Reactive form: `UntypedFormBuilder`, `UntypedFormGroup` (typed forms opted out in v14), `formControlName`, `[ngValue]` | `finding-detail.component.ts/.html` | Local state variables + `bind:value` |
 | Built-in validators `required`, `minLength`, `maxLength` | `finding-detail.component.ts` | Hand-written validation logic |
 | Custom group validator (`statusChangedValidator`) | `finding-detail.component.ts` | Hand-written validation logic |
 | `dirty` / `touched` / `markAllAsTouched` / `reset` / `ng-invalid` CSS | `finding-detail`, `styles.css` | Touched/dirty flags tracked manually |

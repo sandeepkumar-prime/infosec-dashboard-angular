@@ -1,41 +1,44 @@
 {
   "name": "securescope-360",
   "version": "1.0.0",
-  "description": "Sample Angular 10 InfoSec dashboard used as the source baseline for Angular-to-Svelte migration testing.",
+  "description": "Sample Angular 15 InfoSec dashboard used as the source baseline for Angular-to-Svelte migration testing.",
   "private": true,
   "scripts": {
-    "ng": "node scripts/ng.js",
-    "start": "node scripts/start.js",
-    "build": "node scripts/ng.js build",
-    "build:prod": "node scripts/ng.js build --prod",
-    "test": "node scripts/ng.js test",
-    "test:ci": "node scripts/ng.js test --watch=false --browsers=ChromeHeadless"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:prod": "ng build --configuration production",
+    "test": "ng test",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "dependencies": {
-    "@angular/animations": "~10.2.5",
-    "@angular/common": "~10.2.5",
-    "@angular/compiler": "~10.2.5",
-    "@angular/core": "~10.2.5",
-    "@angular/forms": "~10.2.5",
-    "@angular/platform-browser": "~10.2.5",
-    "@angular/platform-browser-dynamic": "~10.2.5",
-    "@angular/router": "~10.2.5",
+    "@angular/animations": "^15.2.10",
+    "@angular/common": "^15.2.10",
+    "@angular/compiler": "^15.2.10",
+    "@angular/core": "^15.2.10",
+    "@angular/forms": "^15.2.10",
+    "@angular/platform-browser": "^15.2.10",
+    "@angular/platform-browser-dynamic": "^15.2.10",
+    "@angular/router": "^15.2.10",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1002.4",
-    "@angular/cli": "~10.2.4",
-    "@angular/compiler-cli": "~10.2.5",
+    "@angular-devkit/build-angular": "^15.2.11",
+    "@angular/cli": "^15.2.11",
+    "@angular/compiler-cli": "^15.2.10",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.6.0",
-    "karma": "~5.2.3",
+    "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "typescript": "~4.0.8"
+    "typescript": "~4.9.5"
+  },
+  "engines": {
+    "node": "^14.20.0 || ^16.13.0 || ^18.10.0"
   }
 }
