@@ -15,7 +15,10 @@ export interface AppConfig {
   referenceDate: string;
 }
 
-export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config', {
+  providedIn: 'root',
+  factory: () => DEFAULT_APP_CONFIG
+});
 
 export const DEFAULT_APP_CONFIG: AppConfig = {
   appName: 'SecureScope 360',
